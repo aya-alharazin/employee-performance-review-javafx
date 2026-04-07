@@ -1,0 +1,125 @@
+.root {
+    -fx-font-family: "Arial";
+    -fx-background-color: #f8f9fa;
+}
+
+/* Top menu */
+.top-menu-bar {
+    -fx-background-color: white;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 0 0 1 0;
+}
+
+.header-bar {
+    -fx-background-color: white;
+    -fx-border-color: #dee2e6;
+    -fx-border-width: 0 0 1 0;
+}
+
+.header-title {
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212529;
+}
+
+.header-user {
+    -fx-font-size: 14px;
+    -fx-text-fill: #6c757d;
+}
+
+/* Main area */
+.main-content {
+    -fx-background-color: #f8f9fa;
+}
+
+/* Cards / panels */
+.left-panel,
+.right-panel {
+    -fx-background-color: white;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 18;
+}
+
+/* Titles */
+.section-title {
+    -fx-font-size: 16px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212529;
+}
+
+.employee-name {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+    -fx-text-fill: #212529;
+}
+
+.employee-department {
+    -fx-font-size: 13px;
+    -fx-text-fill: #6c757d;
+}
+
+.small-note {
+    -fx-font-size: 12px;
+    -fx-text-fill: #6c757d;
+}
+
+/* Image frame */
+.image-frame {
+    -fx-background-color: #f8f9fa;
+    -fx-border-color: #dee2e6;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-padding: 12;
+}
+
+/* Inputs */
+.text-area,
+.date-picker,
+.slider {
+    -fx-background-color: white;
+}
+
+.text-area {
+    -fx-border-color: #ced4da;
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+.text-area:focused {
+    -fx-border-color: #86b7fe;
+}
+
+.date-picker {
+   
+    -fx-border-radius: 6;
+    -fx-background-radius: 6;
+}
+
+
+
+/* Buttons */
+.button {
+    -fx-background-color: #0d6efd;
+    -fx-text-fill: white;
+    -fx-font-size: 13px;
+    -fx-background-radius: 6;
+    -fx-border-radius: 6;
+    -fx-padding: 8 14 8 14;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #0b5ed7;
+}
+
+/* Labels near form controls */
+.label {
+    -fx-text-fill: #212529;
+}
+
+/* Separator */
+.separator .line {
+    -fx-border-color: #dee2e6;
+}
