@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.CheckMenuItem?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Menu?>
+<?import javafx.scene.control.MenuBar?>
+<?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.RadioMenuItem?>
+<?import javafx.scene.control.ToggleGroup?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane id="AnchorPane" prefHeight="517.0" prefWidth="818.0" stylesheets="@style.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/25">
+   <children>
+      <BorderPane layoutY="-1.0" prefHeight="280.0" prefWidth="818.0">
+         <top>
+            <VBox prefHeight="125.0" prefWidth="818.0" BorderPane.alignment="CENTER">
+               <children>
+                  <MenuBar>
+                    <menus>
+                      <Menu mnemonicParsing="false" text="File">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="Close" />
+                        </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Appearence">
+                           <items>
+                              <Menu mnemonicParsing="false" text="Font Family">
+                                <items>
+                                    <RadioMenuItem mnemonicParsing="false" text="Sans serif">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tg" />
+                                       </toggleGroup>
+                                    </RadioMenuItem>
+                                    <RadioMenuItem mnemonicParsing="false" text="Arial" toggleGroup="$tg" />
+                                    <RadioMenuItem mnemonicParsing="false" text="Times New Roman" toggleGroup="$tg" />
+                                </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Font Style">
+                                 <items>
+                                    <CheckMenuItem mnemonicParsing="false" text="Bold" />
+                                    <CheckMenuItem mnemonicParsing="false" text="Italic" />
+                                 </items>
+                              </Menu>
+                              <Menu mnemonicParsing="false" text="Font Size">
+                                 <items>
+                                    <RadioMenuItem mnemonicParsing="false" text="Samll">
+                                       <toggleGroup>
+                                          <ToggleGroup fx:id="tg1" />
+                                       </toggleGroup>
+                                    </RadioMenuItem>
+                                    <RadioMenuItem mnemonicParsing="false" text="Medium" toggleGroup="$tg1" />
+                                    <RadioMenuItem mnemonicParsing="false" text="Large" toggleGroup="$tg1" />
+                                 </items>
+                              </Menu>
+                           </items>
+                      </Menu>
+                      <Menu mnemonicParsing="false" text="Help">
+                        <items>
+                          <MenuItem mnemonicParsing="false" text="About" />
+                        </items>
+                      </Menu>
+                    </menus>
+                  </MenuBar>
+                  <HBox alignment="CENTER" prefHeight="102.0" prefWidth="818.0" styleClass="header-bar">
+                     <children>
+                        <Label alignment="CENTER_RIGHT" styleClass="header-title" text="Employee Performance Dashboard" />
+                     </children>
+                  </HBox>
+               </children>
+            </VBox>
+         </top>
+         <center>
+            <HBox prefHeight="400.0" prefWidth="600.0" styleClass="main-content" BorderPane.alignment="CENTER">
+               <children>
+                  <VBox maxHeight="370.0" maxWidth="300.0" minHeight="370.0" prefHeight="229.0" prefWidth="400.0" spacing="15.0" styleClass="right-panel" />
+                  <VBox maxHeight="370.0" maxWidth="400.0" minHeight="370.0" prefHeight="200.0" prefWidth="400.0" styleClass="left-panel" />
+               </children>
+               <padding>
+                  <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
+               </padding>
+            </HBox>
+         </center>
+      </BorderPane>
+   </children>
+</AnchorPane>

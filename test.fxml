@@ -10,7 +10,6 @@
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.RadioMenuItem?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextArea?>
 <?import javafx.scene.control.ToggleGroup?>
@@ -22,7 +21,7 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="500.0" prefWidth="850.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" >
+<AnchorPane prefHeight="500.0" prefWidth="850.0" stylesheets="@style.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="week6.TestController">
 
     <children>
         <BorderPane prefHeight="500.0" prefWidth="850.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -32,13 +31,12 @@
                 <VBox>
                     <children>
 
-                        <MenuBar prefHeight="38.0" prefWidth="850.0" styleClass="top-menu-bar">
+                        <MenuBar fx:id="menubar" prefHeight="38.0" prefWidth="850.0" styleClass="top-menu-bar">
                             <menus>
 
                                 <Menu styleClass="menu-title" text="File">
                                     <items>
-                                        <MenuItem text="Clear" />
-                                        <MenuItem text="Exit" />
+                                        <MenuItem fx:id="exit" onAction="#exitHandle" text="Exit" />
                                     </items>
                                 </Menu>
 
@@ -84,10 +82,7 @@
 
                                 <Menu styleClass="menu-title" text="Help">
                                     <items>
-                                        <MenuItem text="User Guide" />
-                                        <MenuItem text="Keyboard Shortcuts" />
-                                        <SeparatorMenuItem />
-                                        <MenuItem text="About" />
+                                        <MenuItem fx:id="about" onAction="#abouthandle" text="About" />
                                     </items>
                                 </Menu>
 
@@ -111,23 +106,29 @@
 
             <!-- Center -->
             <center>
-                <HBox spacing="20" styleClass="main-content">
+                <HBox prefHeight="414.0" prefWidth="615.0" spacing="20" styleClass="main-content">
                     <children>
 
-                        <!-- Left Part: Employee Profile -->
-                        <VBox alignment="TOP_CENTER" prefWidth="260.0" spacing="15" styleClass="left-panel">
+                        <!-- Right Part: HR Rating -->
+                        <VBox maxHeight="370.0" minHeight="370.0" prefHeight="370.0" spacing="15" styleClass="right-panel" HBox.hgrow="ALWAYS">
                             <children>
-                                <Label styleClass="section-title" text="Employee Profile" />
-                                <Separator prefWidth="180.0" />
+                                <Label styleClass="section-title" text="HR Review" />
+                                <Separator />
 
-                                <StackPane styleClass="image-frame">
+                                <Label text="Review Date" />
+                                <DatePicker fx:id="datePicker" prefWidth="200.0" />
+                                <HBox alignment="CENTER_LEFT" spacing="10" />
+
+                                <Label text="Comment" />
+                                <TextArea fx:id="commentTextArea" maxHeight="70.0" minHeight="70.0" prefHeight="70.0" promptText="Write HR comment here or load it from a file..." style="-fx-font-size: 25;" wrapText="true" />
+                        <Slider fx:id="slider" blockIncrement="0.0" majorTickUnit="5.0" max="50.0" min="10.0" minorTickCount="0" onMouseDragged="#sliderhandle" showTickLabels="true" showTickMarks="true" value="10.0" />
+
+                                <HBox alignment="CENTER_RIGHT" spacing="10">
                                     <children>
-                                        <ImageView fitHeight="120.0" fitWidth="120.0" preserveRatio="true" />
+                                        <Button fx:id="uploadCommentbtn" onAction="#uploadCommentHandle" text="Upload Comment File" />
+                              <Button fx:id="savebtn" onAction="#saveHandle" text="Save" />
                                     </children>
-                                </StackPane>
-
-                                <Label fx:id="nameLabel" styleClass="employee-name" text="John Doe" />
-                                <Label fx:id="departmentLabel" styleClass="employee-department" text="IT Department" />
+                                </HBox>
                             </children>
 
                             <padding>
@@ -135,32 +136,20 @@
                             </padding>
                         </VBox>
 
-                        <!-- Right Part: HR Rating -->
-                        <VBox spacing="15" styleClass="right-panel" HBox.hgrow="ALWAYS">
+                        <!-- Left Part: Employee Profile -->
+                        <VBox alignment="TOP_CENTER" minWidth="250.0" spacing="15" styleClass="left-panel">
                             <children>
-                                <Label styleClass="section-title" text="HR Review" />
-                                <Separator />
+                                <Label styleClass="section-title" text="Employee Profile" />
+                                <Separator prefWidth="180.0" />
 
-                                <Label text="Review Date" />
-                                <DatePicker prefWidth="200.0" />
-
-                                <Label text="Performance Score" />
-                                <HBox alignment="CENTER_LEFT" spacing="10">
+                                <StackPane styleClass="image-frame">
                                     <children>
-                                        <Slider blockIncrement="5.0" majorTickUnit="25.0" max="100.0" min="0.0" showTickLabels="true" showTickMarks="true" value="50.0" HBox.hgrow="ALWAYS" />
+                                        <ImageView fx:id="imageView" fitHeight="120.0" fitWidth="120.0" preserveRatio="true" />
                                     </children>
-                                </HBox>
+                                </StackPane>
 
-                                <Label text="Comment" />
-                                <TextArea prefHeight="180.0" promptText="Write HR comment here or load it from a file..." wrapText="true" />
-
-                                <HBox alignment="CENTER_RIGHT" spacing="10">
-                                    <children>
-                                        <Button text="Upload Comment File" />
-                              <Button text="Save" />
-                                        <Button text="Clear" />
-                                    </children>
-                                </HBox>
+                                <Label fx:id="nameLabel" styleClass="employee-name" text="John Doe" />
+                                <Label fx:id="departmentLabel" styleClass="employee-department" text="IT Department" />
                             </children>
 
                             <padding>

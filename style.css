@@ -22,10 +22,6 @@
     -fx-text-fill: #212529;
 }
 
-.header-user {
-    -fx-font-size: 14px;
-    -fx-text-fill: #6c757d;
-}
 
 /* Main area */
 .main-content {
