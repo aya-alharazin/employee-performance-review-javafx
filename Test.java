@@ -29,6 +29,7 @@ public class Test extends Application{
         Parent p = FXMLLoader.load(getClass().getResource("test.fxml"));
         Scene s=new Scene(p);
         stage.setScene(s);
+        stage.setTitle("Employee Performance Dashboard");
         stage.show();
     }
     

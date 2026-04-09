@@ -4,6 +4,8 @@
  */
 package week6;
 
+
+
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
@@ -11,6 +13,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.net.URL;
+import java.time.LocalDate;
 import java.util.ResourceBundle;
 import java.util.Scanner;
 import javafx.event.ActionEvent;
@@ -39,51 +42,47 @@ import javafx.stage.Stage;
 public class TestController implements Initializable {
 
     @FXML
-    private ToggleGroup fontSizeGroup;
-    @FXML
-    private ToggleGroup fontFamilyGroup;
-    @FXML
     private MenuItem exit;
     @FXML
-    private ImageView imageView;
+    private ToggleGroup tg;
+    @FXML
+    private ToggleGroup tg2;
+    @FXML
+    private MenuItem about;
+    @FXML
+    private DatePicker datePicker;
+    @FXML
+    private TextArea textArea;
+    @FXML
+    private Slider slider;
+    @FXML
+    private Button upload;
+    @FXML
+    private Button save;
+    @FXML
+    private ImageView imgView;
     @FXML
     private Label nameLabel;
     @FXML
     private Label departmentLabel;
     @FXML
-    private DatePicker datePicker;
-    @FXML
-    private TextArea commentTextArea;
-    @FXML
-    private Button uploadCommentbtn;
-    @FXML
-    private Button savebtn;
-    @FXML
     private MenuBar menubar;
-    @FXML
-    private Slider slider;
-    @FXML
-    private MenuItem about;
     PrintWriter pr;
+
     /**
      * Initializes the controller class.
      */
-    
-    
-    
-    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
-            // TODO
-            Image img =new Image(new FileInputStream("src/week6/aya.png"));
-            imageView.setImage(img);
+            Image img=new Image(new FileInputStream("src/week6/sami.jpg"));
+            imgView.setImage(img);
         } catch (FileNotFoundException ex) {
             System.getLogger(TestController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
         
         try {
-            pr=new PrintWriter(new FileWriter("src/week6/emps.txt"));
+            pr = new PrintWriter(new FileWriter("src/week6/emps.txt",true));
         } catch (IOException ex) {
             System.getLogger(TestController.class.getName()).log(System.Logger.Level.ERROR, (String) null, ex);
         }
@@ -91,74 +90,77 @@ public class TestController implements Initializable {
 
     @FXML
     private void exitHandle(ActionEvent event) {
-        ((Stage) menubar.getScene().getWindow()).close();
+        ((Stage)menubar.getScene().getWindow()).close();
+        pr.close();
     }
 
     @FXML
-    private void uploadCommentHandle(ActionEvent event) throws FileNotFoundException {
-        FileChooser fc=new FileChooser();
-        File f = fc.showOpenDialog(uploadCommentbtn.getScene().getWindow());
+    private void aboutHandle(ActionEvent event) {
+        showAlert("information", "About", "Employee Performance Dashboard",
+                "Version : 1.0\nDeveloper: Aya Alharazin");
+    }
+    
+
+    @FXML
+    private void sliderHandle(MouseEvent event) {
+        textArea.setStyle("-fx-font-size:"+(int)slider.getValue()+"px");
+    }
+
+    @FXML
+    private void uploadHandle(ActionEvent event) {
+        FileChooser fc =new FileChooser();
+        File f = fc.showOpenDialog(upload.getScene().getWindow());
         if(f != null){
-            Scanner s= new Scanner(f);
-            commentTextArea.setText("");
-            while(s.hasNextLine()){
-            commentTextArea.appendText(s.nextLine()+"\n");
-            
-        }
+            textArea.setText("");
+            try(Scanner s =new Scanner(f)){
+            while(s.hasNext()){
+                String line=s.nextLine();
+                textArea.appendText(line);
+            }
+            }catch(FileNotFoundException e){
+                System.out.println(e);
+            }
         }else{
-            showWarning("Warning","No File Chosen", "Make Sure to select valid file");
+            showAlert("warning", "warning", "No File Chosen", "Make sure to select a valid file");
         }
-        
         
         
     }
 
     @FXML
-    private void saveHandle(ActionEvent event) throws FileNotFoundException, IOException {
+    private void saveHandle(ActionEvent event) throws IOException  {
         if(validate()){
-            pr.write(datePicker.getValue().toString()+" - "+commentTextArea.getText()+"\n");
+            pr.write(datePicker.getValue().toString()+" - "+textArea.getText()+"\n");
             pr.flush();
-            showInfo("Successful", "Data Saved Successfully", "Data Saved to file");
-
+            datePicker.setValue(LocalDate.MIN);
+            textArea.setText("");
+            showAlert("information", "successful", "Data saved successfully"
+                    , "Date and comment saved successfully");
+        }else{
+            showAlert("warning", "warning", "Missing Date or comment"
+                    , "please make sure to enter date and comment");
         }
-        else{
-            showWarning("warning","Missing Date or comment","Please make sure to enter the date and comment");
-        }
-            
     }
-
-    @FXML
-    private void sliderhandle(MouseEvent event) {
-        commentTextArea.setStyle("-fx-font-size:"+(int)slider.getValue()+"px");
-    }
-
-    @FXML
-    private void abouthandle(ActionEvent event) {
-        showInfo("About", "Employee Performance Dashboard","Version: 1.0\nDeveloper: Aya\nThis application is used for HR employee reviews." );
-        
-    }
-
+    
+    
     public boolean validate(){
-        if (datePicker.getValue() == null || commentTextArea.getText().isBlank()){
+        if(datePicker.getValue() == null || textArea.getText().isBlank()){
             return false;
         }
         return true;
     }
     
-    public void showWarning(String title,String header,String content){
-        Alert alert = new Alert(Alert.AlertType.WARNING);
+    public void showAlert(String type,String title, String header,String content){
+        Alert alert=null;
+        if(type.equals("information")){
+           alert = new Alert(Alert.AlertType.INFORMATION); 
+        }else if(type.equals("warning")){
+           alert = new Alert(Alert.AlertType.WARNING);
+        }
         alert.setTitle(title);
         alert.setHeaderText(header);
         alert.setContentText(content);
         alert.showAndWait();
     }
     
-    
-        public void showInfo(String title , String header,String content){
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle(title);
-        alert.setHeaderText(header);
-        alert.setContentText(content);
-        alert.showAndWait();
-    }
 }
